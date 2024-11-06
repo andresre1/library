@@ -2,7 +2,7 @@ package com.library.catalog.web;
 
 import com.library.catalog.application.BookResponse;
 import com.library.catalog.application.SearchBookUseCase;
-import com.library.catalog.domain.Book;
+import com.library.catalog.infrastructure.persistence.BookEntity;
 import com.library.catalog.domain.BookId;
 import com.library.catalog.domain.Isbn;
 import com.library.catalog.infrastructure.web.BookResource;
@@ -12,13 +12,11 @@ import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.graphql.test.tester.GraphQlTester;
 
-import java.util.UUID;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @GraphQlTest(BookResource.class)
-class BookResourceTests {
+class BookEntityResourceTests {
 
     @Autowired
     private GraphQlTester graphQlTester;
@@ -27,9 +25,9 @@ class BookResourceTests {
 
     @Test
     void shouldGetFirstBook() {
-        Book book = new Book("Effective Java", new Isbn("9780134685991"));
-        book = new Book(book.getTitle(), book.getIsbn());
-        BookResponse expectedResponse = BookResponse.from(book);
+        BookEntity bookEntity = new BookEntity("Effective Java", new Isbn("9780134685991"));
+        bookEntity = new BookEntity(bookEntity.getTitle(), bookEntity.getIsbn());
+        BookResponse expectedResponse = BookResponse.from(bookEntity);
 
         when(searchBookUseCase.findById(any(BookId.class))).thenReturn(expectedResponse);
 

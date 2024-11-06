@@ -1,40 +1,24 @@
 package com.library.catalog.domain;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
 import org.springframework.util.Assert;
 
-@Entity
-public class Copy {
-    @EmbeddedId
-    private CopyId id;
-    @Embedded
-    @AttributeOverride(name = "id", column = @Column(name = "book_id"))
-    private BookId bookId;
-    @Embedded
-    private BarCode barCode;
-    private boolean available;
+public record Copy(CopyId copyId, BookId bookId, BarCode barCode, boolean available) {
 
-    public Copy() {
-    }
+  public Copy(BookId bookId, BarCode barCode) {
+    this(new CopyId(), bookId, barCode, true);
+    Assert.notNull(bookId, "bookId must not be null");
+    Assert.notNull(barCode, "barCode must not be null");
+  }
 
-    public Copy(BookId bookId, BarCode barCode) {
-        Assert.notNull(bookId, "bookId must not be null");
-        Assert.notNull(barCode, "barCode must not be null");
-        this.id = new CopyId();
-        this.bookId = bookId;
-        this.barCode = barCode;
-        this.available = true;
-    }
+  public Copy(Copy copy, boolean available) {
+    this(copy.copyId, copy.bookId, copy.barCode, available);  // Delegación al constructor canónico
+  }
 
-    public void makeUnavailable() {
-        this.available = false;
-    }
+  public Copy makeUnavailable() {
+    return new Copy(this, false);
+  }
 
-    public void makeAvailable() {
-        this.available = true;
-    }
+  public Copy makeAvailable() {
+    return new Copy(this, true);
+  }
 }

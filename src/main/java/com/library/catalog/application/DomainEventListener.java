@@ -1,8 +1,9 @@
 package com.library.catalog.application;
 
 import com.library.catalog.domain.Copy;
+import com.library.catalog.domain.ports.CopyCreatePersistencePort;
+import com.library.catalog.domain.ports.CopyQueryPersistencePort;
 import com.library.catalog.domain.CopyId;
-import com.library.catalog.domain.CopyRepository;
 import com.library.lending.domain.LoanClosed;
 import com.library.lending.domain.LoanCreated;
 import org.springframework.modulith.events.ApplicationModuleListener;
@@ -11,23 +12,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class DomainEventListener {
 
-    private final CopyRepository copyRepository;
+    private final CopyQueryPersistencePort copyQueryPersistencePort;
+    private final CopyCreatePersistencePort copyCreatePersistencePort;
 
-    public DomainEventListener(CopyRepository copyRepository) {
-        this.copyRepository = copyRepository;
+    public DomainEventListener(CopyQueryPersistencePort copyQueryPersistencePort, CopyCreatePersistencePort copyCreatePersistencePort) {
+        this.copyQueryPersistencePort = copyQueryPersistencePort;
+        this.copyCreatePersistencePort = copyCreatePersistencePort;
     }
 
     @ApplicationModuleListener
     public void handle(LoanCreated event) {
-        Copy copy = copyRepository.findById(new CopyId(event.copyId().id())).orElseThrow();
+        Copy copy = copyQueryPersistencePort.findById(new CopyId(event.copyId().id()));
         copy.makeUnavailable();
-        copyRepository.save(copy);
+        copyCreatePersistencePort.create(copy);
     }
 
     @ApplicationModuleListener
     public void handle(LoanClosed event) {
-        Copy copy = copyRepository.findById(new CopyId(event.copyId().id())).orElseThrow();
+        Copy copy = copyQueryPersistencePort.findById(new CopyId(event.copyId().id()));
         copy.makeAvailable();
-        copyRepository.save(copy);
+        copyCreatePersistencePort.create(copy);
     }
 }

@@ -2,26 +2,19 @@ package com.library.catalog.application;
 
 import com.library.UseCase;
 import com.library.catalog.domain.*;
+import com.library.catalog.domain.ports.BookQueryPersistencePort;
 
 @UseCase
 public class SearchBookUseCase {
 
-  private final BookRepository bookRepository;
+  private final BookQueryPersistencePort bookQueryPersistencePort;
 
-  public SearchBookUseCase(BookRepository bookRepository) {
-    this.bookRepository = bookRepository;
+  public SearchBookUseCase(BookQueryPersistencePort bookQueryPersistencePort) {
+      this.bookQueryPersistencePort = bookQueryPersistencePort;
   }
 
   public BookResponse findById(BookId bookId) {
-    var book = bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException(bookId));
+    var book = bookQueryPersistencePort.findById(bookId);
     return BookResponse.from(book);
   }
-
-  //    public Optional<Book> findByIsbn(Isbn isbn) {
-  //        return bookRepository.findByIsbn(isbn);
-  //    }
-  //
-  //    public List<Book> findByTitle(String title) {
-  //        return bookRepository.findByTitleContainingIgnoreCase(title);
-  //    }
 }

@@ -1,21 +1,21 @@
 package com.library.catalog.application;
 
+import com.library.catalog.domain.Copy;
+import com.library.catalog.domain.ports.CopyCreatePersistencePort;
 import jakarta.validation.constraints.NotNull;
 import com.library.UseCase;
 import com.library.catalog.domain.BarCode;
 import com.library.catalog.domain.BookId;
-import com.library.catalog.domain.Copy;
-import com.library.catalog.domain.CopyRepository;
 
 @UseCase
 public class RegisterBookCopyUseCase {
-    private final CopyRepository copyRepository;
+  private final CopyCreatePersistencePort copyCreatePersistencePort;
 
-    public RegisterBookCopyUseCase(CopyRepository copyRepository) {
-        this.copyRepository = copyRepository;
-    }
+  public RegisterBookCopyUseCase(CopyCreatePersistencePort copyCreatePersistencePort) {
+    this.copyCreatePersistencePort = copyCreatePersistencePort;
+  }
 
-    public void execute(@NotNull BookId bookId, @NotNull BarCode barCode) {
-        copyRepository.save(new Copy(bookId, barCode));
-    }
+  public void execute(@NotNull BookId bookId, @NotNull BarCode barCode) {
+    copyCreatePersistencePort.create(new Copy(bookId, barCode));
+  }
 }

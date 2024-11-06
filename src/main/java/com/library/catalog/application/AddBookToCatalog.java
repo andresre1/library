@@ -2,23 +2,24 @@ package com.library.catalog.application;
 
 import com.library.UseCase;
 import com.library.catalog.domain.Book;
-import com.library.catalog.domain.BookRepository;
+import com.library.catalog.domain.ports.BookCreatePersistencePort;
 import com.library.catalog.domain.Isbn;
 
 @UseCase
 public class AddBookToCatalog {
   private final BookSearchService bookSearchService;
-  private final BookRepository bookRepository;
+  private final BookCreatePersistencePort bookCreatePersistencePort;
 
   public AddBookToCatalog(
-      BookSearchService bookSearchService, BookRepository bookRepository) {
+      BookSearchService bookSearchService,
+      BookCreatePersistencePort bookCreatePersistencePort) {
     this.bookSearchService = bookSearchService;
-    this.bookRepository = bookRepository;
+    this.bookCreatePersistencePort = bookCreatePersistencePort;
   }
 
   public void execute(Isbn isbn) {
     BookInformation result = bookSearchService.search(isbn);
     Book book = new Book(result.title(), isbn);
-    bookRepository.save(book);
+    bookCreatePersistencePort.create(book);
   }
 }
