@@ -2,6 +2,7 @@ package com.library.catalog.web;
 
 import com.library.catalog.application.BookResponse;
 import com.library.catalog.application.SearchBookUseCase;
+import com.library.catalog.domain.Book;
 import com.library.catalog.infrastructure.persistence.BookEntity;
 import com.library.catalog.domain.BookId;
 import com.library.catalog.domain.Isbn;
@@ -25,9 +26,8 @@ class BookEntityResourceTests {
 
     @Test
     void shouldGetFirstBook() {
-        BookEntity bookEntity = new BookEntity("Effective Java", new Isbn("9780134685991"));
-        bookEntity = new BookEntity(bookEntity.getTitle(), bookEntity.getIsbn());
-        BookResponse expectedResponse = BookResponse.from(bookEntity);
+        Book book = new Book("Effective Java", new Isbn("9780134685991"));
+        BookResponse expectedResponse = BookResponse.from(book);
 
         when(searchBookUseCase.findById(any(BookId.class))).thenReturn(expectedResponse);
 

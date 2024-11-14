@@ -41,6 +41,7 @@ class BookEntityResourceAcceptanceTests {
                 .build();
         graphQlTester = HttpGraphQlTester.create(client);
         assertTrue(databaseContainer.isRunning(), "postgresql is running");
+        System.out.println("postgresql running in: " + databaseContainer.getJdbcUrl());
     }
 
     @Test

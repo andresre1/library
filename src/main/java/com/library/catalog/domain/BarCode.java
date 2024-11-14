@@ -4,6 +4,6 @@ import org.springframework.util.Assert;
 
 public record BarCode(String code) {
     public BarCode {
-        Assert.notNull(code, "Bar code must not be null");
+        Assert.notNull(code, "barcode must not be null");
     }
 }

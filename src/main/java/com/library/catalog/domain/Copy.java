@@ -7,7 +7,7 @@ public record Copy(CopyId copyId, BookId bookId, BarCode barCode, boolean availa
   public Copy(BookId bookId, BarCode barCode) {
     this(new CopyId(), bookId, barCode, true);
     Assert.notNull(bookId, "bookId must not be null");
-    Assert.notNull(barCode, "barCode must not be null");
+    Assert.notNull(barCode, "barcode must not be null");
   }
 
   public Copy(Copy copy, boolean available) {

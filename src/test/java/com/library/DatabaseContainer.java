@@ -12,7 +12,8 @@ public class DatabaseContainer extends PostgreSQLContainer<DatabaseContainer> {
 
     public static DatabaseContainer getInstance() {
         if (container == null) {
-            container = new DatabaseContainer().withDatabaseName("springbootdevservices")
+            container = new DatabaseContainer()
+                    .withDatabaseName("springbootdevservices")
                     .withUsername("dev")
                     .withPassword("pass");
         }

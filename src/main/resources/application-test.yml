@@ -2,3 +2,11 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/fixture, classpath:db/migration
+  jpa:
+    hibernate:
+      ddl-auto: none
+  logging:
+    level:
+      org:
+        flywaydb:
+          core: DEBUG
