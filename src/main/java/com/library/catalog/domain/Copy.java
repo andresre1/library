@@ -11,7 +11,7 @@ public record Copy(CopyId copyId, BookId bookId, BarCode barCode, boolean availa
   }
 
   public Copy(Copy copy, boolean available) {
-    this(copy.copyId, copy.bookId, copy.barCode, available);  // Delegación al constructor canónico
+    this(copy.copyId, copy.bookId, copy.barCode, available);
   }
 
   public Copy makeUnavailable() {

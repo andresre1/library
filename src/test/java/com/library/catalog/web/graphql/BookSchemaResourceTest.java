@@ -1,12 +1,11 @@
-package com.library.catalog.web;
+package com.library.catalog.web.graphql;
 
 import com.library.catalog.application.BookResponse;
 import com.library.catalog.application.SearchBookUseCase;
 import com.library.catalog.domain.Book;
-import com.library.catalog.infrastructure.persistence.BookEntity;
 import com.library.catalog.domain.BookId;
 import com.library.catalog.domain.Isbn;
-import com.library.catalog.infrastructure.web.BookResource;
+import com.library.catalog.infrastructure.web.in.rest.BookResource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
@@ -17,7 +16,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @GraphQlTest(BookResource.class)
-class BookEntityResourceTests {
+class BookSchemaResourceTest {
 
     @Autowired
     private GraphQlTester graphQlTester;

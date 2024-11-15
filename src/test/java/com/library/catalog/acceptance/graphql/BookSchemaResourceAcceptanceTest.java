@@ -1,4 +1,4 @@
-package com.library.catalog.acceptance;
+package com.library.catalog.acceptance.graphql;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,14 +12,13 @@ import org.springframework.boot.testcontainers.service.connection.ServiceConnect
 import org.springframework.graphql.test.tester.HttpGraphQlTester;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class BookEntityResourceAcceptanceTests {
+class BookSchemaResourceAcceptanceTest {
 
 //    @Container
 //    @ServiceConnection

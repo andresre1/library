@@ -1,20 +1,20 @@
-package com.library.catalog.infrastructure.web;
+package com.library.catalog.infrastructure.web.in.graphql;
 
 import com.library.catalog.application.BookResponse;
 import com.library.catalog.application.SearchBookUseCase;
 import com.library.catalog.domain.BookId;
+import java.util.UUID;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import java.util.UUID;
 
 @Controller
-public class BookResource {
+public class BookSchemaResource {
 
   private final SearchBookUseCase searchBookUseCase;
 
-  public BookResource(SearchBookUseCase searchBookUseCase) {
+  public BookSchemaResource(SearchBookUseCase searchBookUseCase) {
     this.searchBookUseCase = searchBookUseCase;
   }
 

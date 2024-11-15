@@ -1,4 +1,4 @@
-package com.library.catalog.infrastructure;
+package com.library.catalog.infrastructure.web.out;
 
 import com.library.catalog.application.BookInformation;
 import com.library.catalog.application.BookSearchService;

@@ -1,4 +1,4 @@
-package com.library.catalog.infrastructure;
+package com.library.catalog.infrastructure.web.out;
 
 import java.util.List;
 
