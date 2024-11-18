@@ -10,11 +10,10 @@ public class SearchBookUseCase {
   private final BookQueryPersistencePort bookQueryPersistencePort;
 
   public SearchBookUseCase(BookQueryPersistencePort bookQueryPersistencePort) {
-      this.bookQueryPersistencePort = bookQueryPersistencePort;
+    this.bookQueryPersistencePort = bookQueryPersistencePort;
   }
 
-  public BookResponse findById(BookId bookId) {
-    var book = bookQueryPersistencePort.findById(bookId);
-    return BookResponse.from(book);
+  public Book findById(BookId bookId) {
+    return bookQueryPersistencePort.findById(bookId);
   }
 }

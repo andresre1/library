@@ -10,7 +10,8 @@ class BookTest {
   @Test
   void shouldThrowExceptionWhenTitleIsNull() {
     IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> new Book(null, new Isbn("0-2774-5402-6")));
+        assertThrows(
+            IllegalArgumentException.class, () -> new Book(null, new Isbn("0-2774-5402-6")));
 
     assertEquals("title must not be null", exception.getMessage());
   }
@@ -18,7 +19,7 @@ class BookTest {
   @Test
   void shouldThrowExceptionWhenIsbnIsNull() {
     IllegalArgumentException exception =
-            assertThrows(IllegalArgumentException.class, () -> new Book("test", null));
+        assertThrows(IllegalArgumentException.class, () -> new Book("test", null));
 
     assertEquals("isbn must not be null", exception.getMessage());
   }

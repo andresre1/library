@@ -8,18 +8,20 @@ import org.springframework.web.client.RestClient;
 
 @Service
 public class OpenLibraryBookSearchService implements BookSearchService {
-    private final RestClient restClient;
+  private final RestClient restClient;
 
-    public OpenLibraryBookSearchService(RestClient.Builder builder) {
-        this.restClient = builder
-                .baseUrl("https://openlibrary.org/")
-                .build();
-    }
+  public OpenLibraryBookSearchService(RestClient.Builder builder) {
+    this.restClient = builder.baseUrl("https://openlibrary.org/").build();
+  }
 
-    public BookInformation search(Isbn isbn) {
-        OpenLibraryIsbnSearchResult result = restClient.get().uri("isbn/{isbn}.json", isbn.value())
-                .retrieve()
-                .body(OpenLibraryIsbnSearchResult.class);
-        return new BookInformation(result.title());
-    }
+  public BookInformation search(Isbn isbn) {
+    OpenLibraryIsbnSearchResult result =
+        restClient
+            .get()
+            .uri("isbn/{isbn}.json", isbn.value())
+            .retrieve()
+            .body(OpenLibraryIsbnSearchResult.class);
+    // ! TODO: check null result
+    return new BookInformation(result.title());
+  }
 }

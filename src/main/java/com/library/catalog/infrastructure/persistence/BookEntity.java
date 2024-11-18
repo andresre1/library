@@ -3,7 +3,6 @@ package com.library.catalog.infrastructure.persistence;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 import java.util.Objects;
 import java.util.UUID;
 

@@ -1,7 +1,6 @@
 package com.library.catalog.infrastructure.persistence;
 
 import jakarta.persistence.*;
-
 import java.util.UUID;
 
 @Entity

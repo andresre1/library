@@ -13,6 +13,7 @@ public class BookEntityMapper {
   }
 
   public Book toDomain(BookEntity bookEntity) {
-    return new Book(new BookId(bookEntity.getId()), bookEntity.getTitle(), new Isbn(bookEntity.getIsbn()));
+    return new Book(
+        new BookId(bookEntity.getId()), bookEntity.getTitle(), new Isbn(bookEntity.getIsbn()));
   }
 }

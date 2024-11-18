@@ -20,47 +20,48 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ActiveProfiles("test")
 class BookSchemaResourceAcceptanceTest {
 
-//    @Container
-//    @ServiceConnection
-//    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:14");
+  //    @Container
+  //    @ServiceConnection
+  //    static PostgreSQLContainer<?> postgreSQLContainer = new
+  // PostgreSQLContainer<>("postgres:14");
 
-    @Container
-    @ServiceConnection
-    static DatabaseContainer databaseContainer = DatabaseContainer.getInstance();
+  @Container @ServiceConnection
+  static DatabaseContainer databaseContainer = DatabaseContainer.getInstance();
 
-    @LocalServerPort
-    int port;
+  @LocalServerPort int port;
 
-    private HttpGraphQlTester graphQlTester;
+  private HttpGraphQlTester graphQlTester;
 
-    @BeforeEach
-    void setUp() {
-        WebTestClient client = WebTestClient.bindToServer()
-                .baseUrl(String.format("http://localhost:%s/graphql", port))
-                .build();
-        graphQlTester = HttpGraphQlTester.create(client);
-        assertTrue(databaseContainer.isRunning(), "postgresql is running");
-        System.out.println("postgresql running in: " + databaseContainer.getJdbcUrl());
-    }
+  @BeforeEach
+  void setUp() {
+    WebTestClient client =
+        WebTestClient.bindToServer()
+            .baseUrl(String.format("http://localhost:%s/graphql", port))
+            .build();
+    graphQlTester = HttpGraphQlTester.create(client);
+    assertTrue(databaseContainer.isRunning(), "postgresql is running");
+    System.out.println("postgresql running in: " + databaseContainer.getJdbcUrl());
+  }
 
-    @Test
-    void contextLoads() {
-        assertNotNull(graphQlTester);
-    }
+  @Test
+  void contextLoads() {
+    assertNotNull(graphQlTester);
+  }
 
-    @Test
-    void testFindBookByIdShouldReturnFirstBook() {
-        this.graphQlTester
-				.documentName("bookDetails")
-				.variable("id", "d9b1d7e3-54e1-48d8-9bb4-70af9d7f9f94")
-                .execute()
-                .path("bookById")
-                .matchesJson("""
+  @Test
+  void testFindBookByIdShouldReturnFirstBook() {
+    this.graphQlTester
+        .documentName("bookDetails")
+        .variable("id", "d9b1d7e3-54e1-48d8-9bb4-70af9d7f9f94")
+        .execute()
+        .path("bookById")
+        .matchesJson(
+            """
                     {
                         "id": "d9b1d7e3-54e1-48d8-9bb4-70af9d7f9f94",
                         "title": "Effective Java",
                         "isbn": "9780134685991"
                     }
                 """);
-    }
+  }
 }

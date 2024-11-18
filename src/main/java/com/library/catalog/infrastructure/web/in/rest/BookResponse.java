@@ -1,4 +1,4 @@
-package com.library.catalog.application;
+package com.library.catalog.infrastructure.web.in.rest;
 
 import com.library.catalog.domain.Book;
 
