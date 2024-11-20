@@ -10,18 +10,19 @@ import org.springframework.context.ApplicationEventPublisher;
 @UseCase
 public class ReturnBookUseCase {
 
-    private final LoanQueryPersistencePort loanQueryPersistencePort;
-    private final ApplicationEventPublisher eventPublisher;
+  private final LoanQueryPersistencePort loanQueryPersistencePort;
+  private final ApplicationEventPublisher eventPublisher;
 
-    public ReturnBookUseCase(LoanQueryPersistencePort loanQueryPersistencePort, ApplicationEventPublisher eventPublisher) {
-        this.loanQueryPersistencePort = loanQueryPersistencePort;
-        this.eventPublisher = eventPublisher;
-    }
+  public ReturnBookUseCase(
+      LoanQueryPersistencePort loanQueryPersistencePort, ApplicationEventPublisher eventPublisher) {
+    this.loanQueryPersistencePort = loanQueryPersistencePort;
+    this.eventPublisher = eventPublisher;
+  }
 
-    public Loan findById(LoanId loanId) {
-        var loanEntity = loanQueryPersistencePort.findById(loanId);
-        var loan = loanEntity.returned();
-        eventPublisher.publishEvent(new LoanClosed(loan.copyId().id().toString()));
-        return loan;
-    }
+  public Loan findById(LoanId loanId) {
+    var loanEntity = loanQueryPersistencePort.findById(loanId);
+    var loan = loanEntity.returned();
+    eventPublisher.publishEvent(new LoanClosed(loan.copyId().id().toString()));
+    return loan;
+  }
 }

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-import com.library.catalog.application.event.DomainEventListener;
+import com.library.catalog.application.event.CopyEventListener;
 import com.library.catalog.domain.BarCode;
 import com.library.catalog.domain.BookId;
 import com.library.catalog.domain.Copy;
@@ -21,11 +21,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-class DomainEventListenerTest {
+class CopyEventListenerTest {
 
   @Mock private CopyQueryPersistencePort copyQueryPersistencePort;
   @Mock private CopyCreatePersistencePort copyCreatePersistencePort;
-  @InjectMocks private DomainEventListener domainEventListener;
+  @InjectMocks private CopyEventListener copyEventListener;
 
   @BeforeEach
   void setUp() {
@@ -42,7 +42,7 @@ class DomainEventListenerTest {
 
     when(copyQueryPersistencePort.findById(new CopyId(copyId))).thenReturn(copy);
 
-    domainEventListener.handle(event);
+    copyEventListener.handle(event);
 
     ArgumentCaptor<Copy> captor = ArgumentCaptor.forClass(Copy.class);
     verify(copyCreatePersistencePort, times(1)).create(captor.capture());
@@ -61,7 +61,7 @@ class DomainEventListenerTest {
 
     when(copyQueryPersistencePort.findById(new CopyId(copyId))).thenReturn(copy);
 
-    domainEventListener.handle(event);
+    copyEventListener.handle(event);
 
     ArgumentCaptor<Copy> captor = ArgumentCaptor.forClass(Copy.class);
     verify(copyCreatePersistencePort, times(1)).create(captor.capture());

@@ -17,8 +17,9 @@ public class RentBookUseCase {
   private final ApplicationEventPublisher eventPublisher;
 
   public RentBookUseCase(
-          LoanCreatePersistencePort loanCreatePersistencePort,
-          LoanQueryPersistencePort loanQueryPersistencePort, ApplicationEventPublisher eventPublisher) {
+      LoanCreatePersistencePort loanCreatePersistencePort,
+      LoanQueryPersistencePort loanQueryPersistencePort,
+      ApplicationEventPublisher eventPublisher) {
     this.loanCreatePersistencePort = loanCreatePersistencePort;
     this.loanQueryPersistencePort = loanQueryPersistencePort;
     this.eventPublisher = eventPublisher;

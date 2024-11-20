@@ -15,30 +15,36 @@ import org.springframework.util.StopWatch;
 @Aspect
 @Order(1)
 public class UseCaseLoggingAdvice {
-    private static final Logger LOGGER = LoggerFactory.getLogger(com.library.UseCaseLoggingAdvice.class);
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(com.library.UseCaseLoggingAdvice.class);
 
-    @Pointcut("within(@com.library.UseCase *)")
-    public void useCase() {
-    }
+  @Pointcut("within(@com.library.UseCase *)")
+  public void useCase() {}
 
-    @Pointcut("execution(public * *(..))")
-    public void publicMethod() {
-    }
+  @Pointcut("execution(public * *(..))")
+  public void publicMethod() {}
 
-    @Pointcut("publicMethod() && useCase()")
-    public void publicMethodInsideAUseCase() {
-    }
+  @Pointcut("publicMethod() && useCase()")
+  public void publicMethodInsideAUseCase() {}
 
-    @Around("publicMethodInsideAUseCase()")
-    public Object aroundServiceMethodAdvice(final ProceedingJoinPoint pjp) throws Throwable {
-        StopWatch stopWatch = new StopWatch();
-        try {
-            LOGGER.info("Executing use case: {}#{} with parameters: {}", pjp.getTarget().getClass(), pjp.getSignature().getName(), Arrays.toString(pjp.getArgs()));
-            stopWatch.start();
-            return pjp.proceed();
-        } finally {
-            stopWatch.stop();
-            LOGGER.info("Finished executing use case {}#{} in {}ms", pjp.getTarget().getClass(), pjp.getSignature().getName(), stopWatch.getTotalTimeMillis());
-        }
+  @Around("publicMethodInsideAUseCase()")
+  public Object aroundServiceMethodAdvice(final ProceedingJoinPoint pjp) throws Throwable {
+    StopWatch stopWatch = new StopWatch();
+    try {
+      LOGGER.info(
+          "Executing use case: {}#{} with parameters: {}",
+          pjp.getTarget().getClass(),
+          pjp.getSignature().getName(),
+          Arrays.toString(pjp.getArgs()));
+      stopWatch.start();
+      return pjp.proceed();
+    } finally {
+      stopWatch.stop();
+      LOGGER.info(
+          "Finished executing use case {}#{} in {}ms",
+          pjp.getTarget().getClass(),
+          pjp.getSignature().getName(),
+          stopWatch.getTotalTimeMillis());
     }
+  }
 }

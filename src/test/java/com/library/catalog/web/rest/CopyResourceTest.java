@@ -35,12 +35,12 @@ class CopyResourceTest {
     doNothing().when(registerBookCopyUseCase).execute(any(), any());
 
     mockMvc
-            .perform(
-                    MockMvcRequestBuilders.post("/copies")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(copyCommandValue)
-                            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isCreated());
+        .perform(
+            MockMvcRequestBuilders.post("/copies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(copyCommandValue)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isCreated());
   }
 
   @Test
@@ -49,13 +49,13 @@ class CopyResourceTest {
     var copyCommandValue = mapper.writeValueAsString(copyCommand);
 
     mockMvc
-            .perform(
-                    MockMvcRequestBuilders.post("/copies")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(copyCommandValue)
-                            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$[0]", containsString("Book id is required")));
+        .perform(
+            MockMvcRequestBuilders.post("/copies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(copyCommandValue)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$[0]", containsString("Book id is required")));
   }
 
   @Test
@@ -64,12 +64,12 @@ class CopyResourceTest {
     var copyCommandValue = mapper.writeValueAsString(copyCommand);
 
     mockMvc
-            .perform(
-                    MockMvcRequestBuilders.post("/copies")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(copyCommandValue)
-                            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$[0]", containsString("Barcode is required")));
+        .perform(
+            MockMvcRequestBuilders.post("/copies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(copyCommandValue)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$[0]", containsString("Barcode is required")));
   }
 }

@@ -20,15 +20,18 @@ public class BookExceptionHandler {
 
   @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<Object> handleValidationExceptions(ConstraintViolationException ex) {
-    List<String> errors = ex.getConstraintViolations().stream()
+    List<String> errors =
+        ex.getConstraintViolations().stream()
             .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
             .toList();
     return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-    List<String> errors = ex.getBindingResult().getAllErrors().stream()
+  public ResponseEntity<Object> handleMethodArgumentNotValidException(
+      MethodArgumentNotValidException ex) {
+    List<String> errors =
+        ex.getBindingResult().getAllErrors().stream()
             .map(error -> ((FieldError) error).getField() + ": " + error.getDefaultMessage())
             .toList();
     return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
