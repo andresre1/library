@@ -8,12 +8,12 @@ import com.library.lending.domain.ports.LoanQueryPersistencePort;
 import org.springframework.context.ApplicationEventPublisher;
 
 @UseCase
-public class ReturnBookUseCase {
+public class SearchLoanUseCase {
 
   private final LoanQueryPersistencePort loanQueryPersistencePort;
   private final ApplicationEventPublisher eventPublisher;
 
-  public ReturnBookUseCase(
+  public SearchLoanUseCase(
       LoanQueryPersistencePort loanQueryPersistencePort, ApplicationEventPublisher eventPublisher) {
     this.loanQueryPersistencePort = loanQueryPersistencePort;
     this.eventPublisher = eventPublisher;

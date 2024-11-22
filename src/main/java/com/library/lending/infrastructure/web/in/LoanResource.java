@@ -1,7 +1,7 @@
-package com.library.lending.infraestructure.web.in;
+package com.library.lending.infrastructure.web.in;
 
 import com.library.lending.application.RentBookUseCase;
-import com.library.lending.application.ReturnBookUseCase;
+import com.library.lending.application.SearchLoanUseCase;
 import com.library.lending.domain.CopyId;
 import com.library.lending.domain.LoanId;
 import com.library.lending.domain.UserId;
@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/loans")
 public class LoanResource {
 
-  private final ReturnBookUseCase returnBookUseCase;
+  private final SearchLoanUseCase searchLoanUseCase;
   private final RentBookUseCase rentBookUseCase;
 
-  public LoanResource(ReturnBookUseCase returnBookUseCase, RentBookUseCase rentBookUseCase) {
-    this.returnBookUseCase = returnBookUseCase;
+  public LoanResource(SearchLoanUseCase searchLoanUseCase, RentBookUseCase rentBookUseCase) {
+    this.searchLoanUseCase = searchLoanUseCase;
     this.rentBookUseCase = rentBookUseCase;
   }
 
   @GetMapping("/{id}")
   public LoanResponse loanById(@PathVariable String id) {
     UUID uuid = UUID.fromString(id);
-    var loan = returnBookUseCase.findById(new LoanId(uuid));
+    var loan = searchLoanUseCase.findById(new LoanId(uuid));
     return LoanResponse.from(loan);
   }
 

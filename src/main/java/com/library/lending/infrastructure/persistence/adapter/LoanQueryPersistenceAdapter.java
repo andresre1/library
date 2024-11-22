@@ -1,12 +1,12 @@
-package com.library.lending.infraestructure.persistence.adapter;
+package com.library.lending.infrastructure.persistence.adapter;
 
 import com.library.lending.domain.CopyId;
 import com.library.lending.domain.Loan;
 import com.library.lending.domain.LoanId;
 import com.library.lending.domain.LoanNotFoundException;
 import com.library.lending.domain.ports.LoanQueryPersistencePort;
-import com.library.lending.infraestructure.persistence.LoanEntityMapper;
-import com.library.lending.infraestructure.persistence.LoanRepository;
+import com.library.lending.infrastructure.persistence.LoanEntityMapper;
+import com.library.lending.infrastructure.persistence.LoanRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

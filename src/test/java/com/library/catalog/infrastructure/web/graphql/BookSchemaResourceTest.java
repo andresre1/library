@@ -1,4 +1,4 @@
-package com.library.catalog.web.graphql;
+package com.library.catalog.infrastructure.web.graphql;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

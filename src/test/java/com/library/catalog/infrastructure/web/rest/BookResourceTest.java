@@ -1,4 +1,4 @@
-package com.library.catalog.web.rest;
+package com.library.catalog.infrastructure.web.rest;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;

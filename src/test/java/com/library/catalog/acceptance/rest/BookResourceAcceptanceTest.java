@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.library.DatabaseContainer;
+import com.library.catalog.infrastructure.web.in.rest.BookCommand;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -20,7 +21,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class LoanResourceAcceptanceTest {
+class BookResourceAcceptanceTest {
 
   @Container @ServiceConnection
   static DatabaseContainer databaseContainer = DatabaseContainer.getInstance();
@@ -48,5 +49,17 @@ class LoanResourceAcceptanceTest {
         .body("isbn", is("9780134685991"));
   }
 
-  // TODO POST
+  @Test
+  void createBook() {
+    var bookCommand = new BookCommand("9781234567897");
+    given()
+        .contentType(ContentType.JSON)
+        .body(bookCommand)
+        .when()
+        .post("/books")
+        .then()
+        .statusCode(HttpStatus.SC_CREATED);
+  }
+
+  // TODO test exceptions
 }

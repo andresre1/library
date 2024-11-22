@@ -5,6 +5,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  modulith:
+    events:
+      jdbc-schema-initialization:
+        enabled: true
   logging:
     level:
       org:

@@ -2,9 +2,11 @@ package com.library.catalog.infrastructure.persistence;
 
 import com.library.catalog.domain.Copy;
 import com.library.catalog.domain.ports.CopyCreatePersistencePort;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Transactional
 public class CopyCreatePersistenceAdapter implements CopyCreatePersistencePort {
 
   private final CopyRepository copyRepository;

@@ -1,4 +1,4 @@
-package com.library.lending.infraestructure.web.in;
+package com.library.lending.infrastructure.web.in;
 
 import com.library.lending.domain.Loan;
 import java.time.LocalDate;

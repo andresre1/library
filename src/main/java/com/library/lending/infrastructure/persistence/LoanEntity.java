@@ -1,4 +1,4 @@
-package com.library.lending.infraestructure.persistence;
+package com.library.lending.infrastructure.persistence;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
