@@ -1,6 +1,4 @@
-# Library Management System 
-<img src="library.svg" alt="" width="50" />
-
+# Library Management System <img src="library.svg" alt="" width="50" />
 
 Este proyecto es un sistema de gestión de biblioteca desarrollado en **Spring Boot**, siguiendo un enfoque **modular monolítico** utilizando **Spring Modulith**. Permite gestionar libros y sus copias, y manejar préstamos entre usuarios, implementando eventos internos para sincronizar el estado de las entidades.
 
