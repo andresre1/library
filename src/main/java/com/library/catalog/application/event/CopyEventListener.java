@@ -23,20 +23,6 @@ public class CopyEventListener {
     this.copyCreatePersistencePort = copyCreatePersistencePort;
   }
 
-  //    @ApplicationModuleListener
-  //    public void makeCopyUnavailable(LoanCreated event) {
-  //        Copy copy = copyQueryPersistencePort.findById(new CopyId(event.copyId()));
-  //        copy.makeUnavailable();
-  //        copyCreatePersistencePort.create(copy);
-  //    }
-  //
-  //    @ApplicationModuleListener
-  //    public void makeCopyAvailable(LoanClosed event) {
-  //        Copy copy = copyQueryPersistencePort.findById(new CopyId(event.copyId()));
-  //        copy.makeAvailable();
-  //        copyCreatePersistencePort.create(copy);
-  //    }
-
   @ApplicationModuleListener
   public void handle(LendingEvent event) {
     Copy copy = copyQueryPersistencePort.findById(new CopyId(event.copyId()));
