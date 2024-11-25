@@ -1,11 +1,11 @@
-package com.library.lending.acceptance.rest;
+package com.library.catalog.acceptance.rest;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.library.DatabaseContainer;
-import com.library.lending.infrastructure.web.in.LoanCommand;
+import com.library.catalog.infrastructure.web.in.rest.BookCommand;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -21,7 +21,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class LoanResourceAcceptanceTest {
+class BookResourceAcceptanceTestIT {
 
   @Container @ServiceConnection
   static DatabaseContainer databaseContainer = DatabaseContainer.getInstance();
@@ -36,27 +36,27 @@ class LoanResourceAcceptanceTest {
   }
 
   @Test
-  void findLoanById_shouldReturnLoan() {
-    String loanId = "f3a7e812-3d9b-4f3a-a1b7-9bf5d7d8f9a1";
+  void findBookById_shouldReturnBook() {
+    String bookId = "d9b1d7e3-54e1-48d8-9bb4-70af9d7f9f94";
     given()
         .contentType(ContentType.JSON)
         .when()
-        .get("/loans/{id}", loanId)
+        .get("/books/{id}", bookId)
         .then()
         .statusCode(HttpStatus.SC_OK)
-        .body("id", is(loanId))
-        .body("copyId", is("e1a7f82c-cb4f-4a42-8a2f-50a76d7a0348"))
-        .body("userId", is("a8c12345-f7d9-48a8-b7f9-98a76d3a047b"));
+        .body("id", is(bookId))
+        .body("title", is("Effective Java"))
+        .body("isbn", is("9780134685991"));
   }
 
   @Test
-  void createLoan() {
-    var loanCommand = new LoanCommand("5e809384-b046-48e1-8c5b-b2884b28d337", "aca308e6-d220-414e-ad12-7e2c233889f0");
+  void createBook() {
+    var bookCommand = new BookCommand("9781234567897");
     given()
         .contentType(ContentType.JSON)
-        .body(loanCommand)
+        .body(bookCommand)
         .when()
-        .post("/loans")
+        .post("/books")
         .then()
         .statusCode(HttpStatus.SC_CREATED);
   }

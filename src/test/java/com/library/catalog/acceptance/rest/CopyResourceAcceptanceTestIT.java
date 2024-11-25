@@ -1,11 +1,10 @@
 package com.library.catalog.acceptance.rest;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.library.DatabaseContainer;
-import com.library.catalog.infrastructure.web.in.rest.BookCommand;
+import com.library.catalog.infrastructure.web.in.rest.CopyCommand;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -21,7 +20,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class BookResourceAcceptanceTest {
+class CopyResourceAcceptanceTestIT {
 
   @Container @ServiceConnection
   static DatabaseContainer databaseContainer = DatabaseContainer.getInstance();
@@ -36,27 +35,13 @@ class BookResourceAcceptanceTest {
   }
 
   @Test
-  void findBookById_shouldReturnBook() {
-    String bookId = "d9b1d7e3-54e1-48d8-9bb4-70af9d7f9f94";
+  void createCopy() {
+    var copyCommand = new CopyCommand("b9ecae59-dab3-4949-9b7e-e28711dcbd9e", "9781234567897");
     given()
         .contentType(ContentType.JSON)
+        .body(copyCommand)
         .when()
-        .get("/books/{id}", bookId)
-        .then()
-        .statusCode(HttpStatus.SC_OK)
-        .body("id", is(bookId))
-        .body("title", is("Effective Java"))
-        .body("isbn", is("9780134685991"));
-  }
-
-  @Test
-  void createBook() {
-    var bookCommand = new BookCommand("9781234567897");
-    given()
-        .contentType(ContentType.JSON)
-        .body(bookCommand)
-        .when()
-        .post("/books")
+        .post("/copies")
         .then()
         .statusCode(HttpStatus.SC_CREATED);
   }

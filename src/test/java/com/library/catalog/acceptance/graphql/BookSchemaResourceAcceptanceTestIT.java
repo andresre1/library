@@ -18,7 +18,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class BookSchemaResourceAcceptanceTest {
+class BookSchemaResourceAcceptanceTestIT {
 
   //    @Container
   //    @ServiceConnection
